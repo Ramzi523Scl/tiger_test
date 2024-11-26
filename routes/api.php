@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ProxyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
+	Route::prefix('numbers')->controller(ProxyController::class)->group(function () {
 
+		Route::get('', 'getNumber');
+
+		Route::prefix('{activation_id}')->group(function () {
+			Route::get('sms', 'getSms');
+			Route::get('status', 'getStatus');
+			Route::delete('', 'cancelNumber');
+		});
+
+	});
 
 });
 
